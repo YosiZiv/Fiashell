@@ -1,0 +1,12 @@
+.slider {
+  position: absolute;
+  right: 5vw;
+  left: 5vw;
+  transition: top 1s;
+}
+.is-open {
+  top: 10%;
+}
+.is-close {
+  top: -100%;
+}

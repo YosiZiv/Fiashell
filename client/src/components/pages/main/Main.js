@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SlideIn from "../../layouts/SlideIn/SlideIn";
 import "./Main.scss";
 const Main = () => {
   return (
