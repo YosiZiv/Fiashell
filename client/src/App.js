@@ -1,14 +1,15 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import Main from "./components/pages/main/Main";
 import "./App.css";
 
 function App() {
   const routes = (
-    <React.Fragment>
+    <>
       <Switch>
-        <Route path='/' component={<h1>test</h1>} exact />
+        <Route path='/' component={Main} exact />
       </Switch>
-    </React.Fragment>
+    </>
   );
 
   return (
