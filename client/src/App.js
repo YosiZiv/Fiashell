@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Main from "./components/pages/main/Main";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   const routes = (
