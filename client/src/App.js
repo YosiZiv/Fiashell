@@ -12,11 +12,7 @@ function App() {
     </>
   );
 
-  return (
-    <div className='App'>
-      <main>{routes}</main>
-    </div>
-  );
+  return <div className='App'>{routes}</div>;
 }
 
 export default App;

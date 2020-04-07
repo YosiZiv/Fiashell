@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import "./Main.scss";
-import backgroundImage from "../../../assets/MainPageImage.jpg";
 const Main = () => {
   return (
-    <div
-      className='MainPageBackground'
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-      }}
-    >
+    <div className='main-container'>
       <div className='MainPageContent'>
         <h2>MPPUM</h2>
         <p>My Pivate Product User Managment </p>

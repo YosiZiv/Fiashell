@@ -1,6 +1,11 @@
-.MainPageBackground {
+@import "../../../styles.scss";
+.main-container {
   height: 100vh;
-  background: no-repeat center center fixed;
+  background: url("../../../assets//MainPageImage.jpg");
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .MainPageContent {
