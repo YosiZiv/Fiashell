@@ -1,15 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import Input from "../../layouts/TextInput/TextInput";
+import { inputChange } from "../../../redux/actions/register";
 import "./Register.scss";
 const Register = (props) => {
-  const {
-    loading,
-    registerForm = {},
-    message,
-    formSubmit,
-    inputChange,
-    closeForm,
-  } = props;
+  const { loading, registerForm } = props;
+  console.log(loading);
+
   const {
     firstName = "",
     lastName = "",
@@ -18,16 +15,14 @@ const Register = (props) => {
     password = "",
     passwordConfirm = "",
   } = registerForm;
-
+  const handleInputChange = ({ id, value, validation }) => {
+    const { inputChange } = props;
+    inputChange({ id, value, validation });
+  };
   return (
     <div className='registerAdminContainer'>
       <div className='adminTitle'>
         <h2> BE ADMIN</h2>
-        <i
-          onClick={closeForm}
-          style={{ fontSize: "2vw", cursor: "pointer" }}
-          className='fas fa-times'
-        ></i>
       </div>
       <form className='adminRegisterForm' onSubmit={(e) => e.preventDefault()}>
         <Input
@@ -36,11 +31,10 @@ const Register = (props) => {
           id='firstName'
           name='FIRST NAME'
           type='text'
-          error={message && message.firstName}
           required
           disabled={loading}
           defaultValue={firstName && firstName.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{
             isRequired: true,
             minLength: 2,
@@ -53,11 +47,10 @@ const Register = (props) => {
           id='lastName'
           name='LAST NAME'
           type='text'
-          error={message && message.lastName}
           required
           disabled={loading}
           defaultValue={lastName && lastName.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{
             isRequired: true,
             minLength: 2,
@@ -71,11 +64,10 @@ const Register = (props) => {
           id='phone'
           name='PHONE'
           type='text'
-          error={message && message.phone}
           required
           disabled={loading}
           defaultValue={phone && phone.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{
             isRequired: true,
             minLength: 6,
@@ -88,11 +80,10 @@ const Register = (props) => {
           id='email'
           name='EMAIL'
           type='email'
-          error={message && message.email}
           required
           disabled={loading}
           defaultValue={email && email.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{ isRequired: true, isEmail: true }}
         />
 
@@ -102,11 +93,10 @@ const Register = (props) => {
           id='password'
           name='PASSWORD'
           type='password'
-          error={message && message.password}
           required
           disabled={loading}
           defaultValue={password && password.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{ isRequired: true, minLength: 6 }}
         />
         <Input
@@ -115,21 +105,23 @@ const Register = (props) => {
           id='passwordConfirm'
           name='RE PASSWORD'
           type='password'
-          error={message && message.passwordConfirm}
           required
           disabled={loading}
           defaultValue={passwordConfirm && passwordConfirm.value}
-          inputChange={inputChange}
+          inputChange={handleInputChange}
           validation={{ isRequired: true, minLength: 6 }}
         />
         <div className='registerSubmit'>
-          <button className='btn btn-primary' onClick={formSubmit}>
-            BE ADMIN
-          </button>
+          <button className='btn btn-primary'>BE ADMIN</button>
         </div>
       </form>
     </div>
   );
 };
-
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    registerForm: state.register.registerForm,
+    loading: state.ui.loading,
+  };
+};
+export default connect(mapStateToProps, { inputChange })(Register);
