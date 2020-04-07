@@ -1,11 +1,10 @@
 import React from "react";
-import React from "react";
-import Input from "../TextInput/TextInput";
-import "./RegisterUser.css";
-const registerAdmin = (props) => {
+import Input from "../../layouts/TextInput/TextInput";
+import "./Register.scss";
+const Register = (props) => {
   const {
     loading,
-    registerForm,
+    registerForm = {},
     message,
     formSubmit,
     inputChange,
@@ -133,4 +132,4 @@ const registerAdmin = (props) => {
   );
 };
 
-export default registerAdmin;
+export default Register;
