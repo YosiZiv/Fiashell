@@ -5,35 +5,26 @@ import { inputChange } from "../../../redux/actions/register";
 import "./Register.scss";
 const Register = (props) => {
   const { loading, registerForm } = props;
-  console.log(loading);
-
-  const {
-    firstName = "",
-    lastName = "",
-    phone = "",
-    email = "",
-    password = "",
-    passwordConfirm = "",
-  } = registerForm;
   const handleInputChange = ({ id, value, validation }) => {
     const { inputChange } = props;
     inputChange({ id, value, validation });
   };
   return (
-    <div className='registerAdminContainer'>
-      <div className='adminTitle'>
+    <>
+      <div className='register-title'>
         <h2> BE ADMIN</h2>
       </div>
-      <form className='adminRegisterForm' onSubmit={(e) => e.preventDefault()}>
+
+      <form className='register-form' onSubmit={(e) => e.preventDefault()}>
         <Input
-          isValid={firstName ? firstName.isValid : true}
+          isValid={registerForm.firstName?.isValid ?? true}
           className='form-control'
           id='firstName'
           name='FIRST NAME'
           type='text'
           required
           disabled={loading}
-          defaultValue={firstName && firstName.value}
+          defaultValue={registerForm.firstName?.value}
           inputChange={handleInputChange}
           validation={{
             isRequired: true,
@@ -42,14 +33,14 @@ const Register = (props) => {
           }}
         />
         <Input
-          isValid={lastName ? lastName.isValid : true}
+          isValid={registerForm.lastName?.isValid ?? true}
           className='form-control'
           id='lastName'
           name='LAST NAME'
           type='text'
           required
           disabled={loading}
-          defaultValue={lastName && lastName.value}
+          defaultValue={registerForm.lastName?.value}
           inputChange={handleInputChange}
           validation={{
             isRequired: true,
@@ -59,14 +50,14 @@ const Register = (props) => {
         />
 
         <Input
-          isValid={phone ? phone.isValid : true}
+          isValid={registerForm.phone?.isValid ?? true}
           className='form-control'
           id='phone'
           name='PHONE'
           type='text'
           required
           disabled={loading}
-          defaultValue={phone && phone.value}
+          defaultValue={registerForm.phone?.value}
           inputChange={handleInputChange}
           validation={{
             isRequired: true,
@@ -75,39 +66,39 @@ const Register = (props) => {
           }}
         />
         <Input
-          isValid={email ? email.isValid : true}
+          isValid={registerForm.email?.isValid ?? true}
           className='form-control'
           id='email'
           name='EMAIL'
           type='email'
           required
           disabled={loading}
-          defaultValue={email && email.value}
+          defaultValue={registerForm.email?.value}
           inputChange={handleInputChange}
           validation={{ isRequired: true, isEmail: true }}
         />
 
         <Input
-          isValid={password ? password.isValid : true}
+          isValid={registerForm.password?.isValid ?? true}
           className='form-control'
           id='password'
           name='PASSWORD'
           type='password'
           required
           disabled={loading}
-          defaultValue={password && password.value}
+          defaultValue={registerForm.password?.value}
           inputChange={handleInputChange}
           validation={{ isRequired: true, minLength: 6 }}
         />
         <Input
-          isValid={password ? password.isValid : true}
+          isValid={registerForm.password?.isValid ?? true}
           className='form-control'
           id='passwordConfirm'
           name='RE PASSWORD'
           type='password'
           required
           disabled={loading}
-          defaultValue={passwordConfirm && passwordConfirm.value}
+          defaultValue={registerForm.passwordConfirm?.value}
           inputChange={handleInputChange}
           validation={{ isRequired: true, minLength: 6 }}
         />
@@ -115,7 +106,7 @@ const Register = (props) => {
           <button className='btn btn-primary'>BE ADMIN</button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 const mapStateToProps = (state) => {
