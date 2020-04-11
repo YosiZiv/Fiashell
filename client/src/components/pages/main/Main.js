@@ -11,7 +11,7 @@ const Main = () => {
     <div className='main-container'>
       <div className='main-header'>
         <h2>MPPUM</h2>
-        <p>My Pivate Product User Managment </p>
+        <p>My Pivate Product User BULBULnt </p>
         <button onClick={slideInToggle} type='button'>
           Become A Manager
         </button>
