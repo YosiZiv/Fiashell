@@ -1,4 +1,5 @@
 import { SET_INPUT } from "../actions/register";
+import { checkValidity } from "../../utility";
 const initState = {
   registerForm: {},
 };
@@ -6,12 +7,17 @@ const initState = {
 export default function register(state = initState, action) {
   switch (action.type) {
     case SET_INPUT:
+      const { id, value, validation } = action.payload;
+      let errors = checkValidity(id, value, validation);
+      console.log(errors);
+      const isValid = Object.entries(errors).length === 0 ? true : false;
       return {
         ...state,
         registerForm: {
           ...state.registerForm,
-          [action.payload.id]: {
-            value: action.payload.value,
+          [id]: {
+            value,
+            isValid,
           },
         },
       };
