@@ -1,13 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import Input from "../../layouts/TextInput/TextInput";
-import { inputChange } from "../../../redux/actions/register";
+import { inputChange, userRegister } from "../../../redux/actions/register";
 import "./Register.scss";
-const Register = ({ loading, registerForm, inputChange }) => {
+const Register = ({ loading, registerForm, inputChange, userRegister }) => {
   const handleInputChange = (event, id, validation) => {
     event.preventDefault();
     const { value } = event.currentTarget;
     inputChange({ id, value, validation });
+  };
+  const handleFormSubmit = async () => {
+    console.log("function 1 work", registerForm);
+
+    const registerData = {
+      firstName: registerForm.firstName?.value ?? "",
+      lastName: registerForm.lastName?.value ?? "",
+      phone: registerForm.phone?.value ?? "",
+      email: registerForm.email?.value ?? "",
+      password: registerForm.password?.value ?? "",
+      passwordConfirm: registerForm.passwordConfirm?.value ?? "",
+    };
+    return userRegister(registerData);
   };
   return (
     <div className='register-container'>
@@ -101,7 +114,9 @@ const Register = ({ loading, registerForm, inputChange }) => {
         </div>
       </div>
       <div className='registerSubmit'>
-        <button className='btn btn-primary'>BE ADMIN</button>
+        <button className='btn btn-primary' onClick={handleFormSubmit}>
+          BE ADMIN
+        </button>
       </div>
     </div>
   );
@@ -109,7 +124,10 @@ const Register = ({ loading, registerForm, inputChange }) => {
 const mapStateToProps = (state) => {
   return {
     registerForm: state.register.registerForm,
+
     loading: state.ui.loading,
   };
 };
-export default connect(mapStateToProps, { inputChange })(Register);
+export default connect(mapStateToProps, { inputChange, userRegister })(
+  Register
+);
