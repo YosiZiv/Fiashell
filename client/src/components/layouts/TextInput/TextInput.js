@@ -26,7 +26,7 @@ const textInput = ({
       onChange={(e) => handleInputChange(e, id, validation)}
       placeholder={`Enter ${name}`}
       autoComplete='off'
-      className={error.length !== 0 ? " invalid" : ""}
+      className={error && "invalid"}
     />
     <div className='text-input-error-message'>
       {error && <small className='text-danger'>{error}</small>}
