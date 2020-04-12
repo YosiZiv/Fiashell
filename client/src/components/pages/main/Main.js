@@ -16,11 +16,9 @@ const Main = () => {
           Become A Manager
         </button>
       </div>
-      <div className='main-register'>
-        <SlideIn open={slideToggle}>
-          <Register />
-        </SlideIn>
-      </div>
+      <SlideIn open={slideToggle}>
+        <Register />
+      </SlideIn>
     </div>
   );
 };

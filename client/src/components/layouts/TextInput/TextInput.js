@@ -1,70 +1,37 @@
 import React from "react";
 import "./TextInput.scss";
-const textInput = (props) => {
-  const {
-    id,
-    type,
-    name,
-    required,
-    defaultValue,
-    disabled,
-    error,
-    showTitle,
-    className,
-    validation,
-    inputChange,
-    isValid,
-  } = props;
-  const isValidClass = !isValid ? " invalid" : "";
-  const handleKeyDown = (event) => {
-    // Preventing from invalid characters to be inserted in the number input.
-    if (type === "number" && ["-", "+", "e"].includes(event.key)) {
-      event.preventDefault();
-    }
-  };
+const textInput = ({
+  id,
+  name,
+  type,
+  required,
+  validation,
+  error,
+  disabled,
+  value,
+  handleInputChange,
+}) => (
+  <div className='text-input-container'>
+    <h6>
+      <strong>
+        {name} {required && <span className='text-input-header'>*</span>}
+      </strong>
+    </h6>
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { value } = event.currentTarget;
-    const formattedValue = type === "number" ? Number(value) : value;
-    inputChange({ id, value: formattedValue, validation });
-  };
-
-  return (
-    <div className='text-input-container'>
-      {showTitle && (
-        <h6>
-          <strong>
-            {name} {required && <span className='text-danger'>*</span>}
-          </strong>
-        </h6>
-      )}
-      <input
-        id={id}
-        type={type}
-        value={defaultValue}
-        disabled={disabled}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={`Enter ${name}`}
-        autoComplete='off'
-        className={className + isValidClass}
-      />
-      <div className='text-input-error-message'>
-        {error && <small className='text-danger'>{error}</small>}
-      </div>
+    <input
+      id={id}
+      type={type}
+      value={value}
+      disabled={disabled}
+      onChange={(e) => handleInputChange(e, id, validation)}
+      placeholder={`Enter ${name}`}
+      autoComplete='off'
+      className={error && "invalid"}
+    />
+    <div className='text-input-error-message'>
+      {error && <small className='text-danger'>{error}</small>}
     </div>
-  );
-};
-
-textInput.defaultProps = {
-  type: "text",
-  error: null,
-  required: false,
-  disabled: false,
-  showTitle: true,
-  className: "",
-  defaultValue: "",
-};
+  </div>
+);
 
 export default textInput;
