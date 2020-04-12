@@ -1,9 +1,8 @@
 export const checkValidity = (id, value, validation) => {
   const emailPattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   const intPattern = /^\d+$/;
-  const errors = {};
   if (!validation) {
-    return false;
+    return null;
   }
   if (validation.isRequired && value.trim() === "") {
     return `${id} field is require`;
@@ -20,5 +19,5 @@ export const checkValidity = (id, value, validation) => {
   if (validation.isNumeric && intPattern.test(value)) {
     return `${id} field is not a number`;
   }
-  return false;
+  return null;
 };
