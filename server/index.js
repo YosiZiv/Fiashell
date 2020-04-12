@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -6,7 +7,6 @@ const api = require("./api/api");
 const PORT = process.env.PORT || 4000;
 const helmet = require("helmet");
 const morgan = require("morgan");
-require("dotenv").config();
 
 app.use(morgan("common"));
 app.use(helmet());
@@ -35,7 +35,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.get("*", (req, res) => {
+app.get("*", (req, res, next) => {
   if (req.path === "/api") {
     next();
   }
