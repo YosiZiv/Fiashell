@@ -8,16 +8,16 @@ export default function register(state = initState, action) {
   switch (action.type) {
     case SET_INPUT:
       const { id, value, validation } = action.payload;
-      let errors = checkValidity(id, value, validation);
-      console.log(errors);
-      const isValid = Object.entries(errors).length === 0 ? true : false;
+      let error = checkValidity(id, value, validation);
+      console.log(error);
+
       return {
         ...state,
         registerForm: {
           ...state.registerForm,
           [id]: {
             value,
-            isValid,
+            error,
           },
         },
       };
