@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import Input from "../../layouts/TextInput/TextInput";
 import { inputChange, userRegister } from "../../../redux/actions/register";
 import "./Register.scss";
-const Register = ({ loading, registerForm, inputChange, userRegister }) => {
+const Register = ({
+  loading,
+  registerForm,
+  message,
+  inputChange,
+  userRegister,
+}) => {
   const handleInputChange = (event, id, validation) => {
     event.preventDefault();
     const { value } = event.currentTarget;
@@ -22,6 +28,9 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
     };
     return userRegister(registerData);
   };
+  console.log(message);
+
+  console.log(globalMessage, message);
   return (
     <div className='register-container'>
       <div className='register-title'>
@@ -39,7 +48,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
               minLength: 2,
               maxLength: 256,
             }}
-            error={registerForm.firstName?.error}
+            error={registerForm.firstName?.error ?? message?.firstName}
             disabled={loading}
             value={registerForm.firstName?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -55,7 +64,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
               minLength: 2,
               maxLength: 256,
             }}
-            error={registerForm.lastName?.error}
+            error={registerForm.lastName?.error ?? message.lastName}
             disabled={loading}
             value={registerForm.lastName?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -70,7 +79,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
               minLength: 6,
               maxLength: 15,
             }}
-            error={registerForm.phone?.error}
+            error={registerForm.phone?.error ?? message.phone}
             disabled={loading}
             value={registerForm.phone?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -82,7 +91,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
             type='email'
             required
             validation={{ isRequired: true, isEmail: true }}
-            error={registerForm.email?.error}
+            error={registerForm.email?.error ?? message.email}
             disabled={loading}
             value={registerForm.email?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -94,7 +103,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
             type='password'
             required
             validation={{ isRequired: true, minLength: 6 }}
-            error={registerForm.password?.error}
+            error={registerForm.password?.error ?? message.password}
             disabled={loading}
             value={registerForm.password?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -106,7 +115,9 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
             type='password'
             required
             validation={{ isRequired: true, minLength: 6 }}
-            error={registerForm.passwordConfirm?.error}
+            error={
+              registerForm.passwordConfirm?.error ?? message.passwordConfirm
+            }
             disabled={loading}
             value={registerForm.passwordConfirm?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -124,7 +135,7 @@ const Register = ({ loading, registerForm, inputChange, userRegister }) => {
 const mapStateToProps = (state) => {
   return {
     registerForm: state.register.registerForm,
-
+    message: state.ui.message,
     loading: state.ui.loading,
   };
 };
