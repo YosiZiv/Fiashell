@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const api = require("./api/api");
@@ -17,8 +18,8 @@ app.use(
 );
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use("/", express.static("public/build"));
 app.use("/api", api);
-app.use(express.static("public/build"));
 
 app.use((req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
@@ -27,19 +28,14 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
+  console.log("function 2", res.statusCode, error);
+  // const statusCode = res.statusCode ===, 200 ? 500 : res.statusCode;
+  console.log("function 2", res.statusCode);
+  res.status(res.statusCode);
   res.json({
     error: error.message,
     stack: error.stack,
   });
-});
-
-app.get("*", (req, res, next) => {
-  if (req.path === "/api") {
-    next();
-  }
-  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
 });
 
 app.listen(PORT, () => console.log("Server is running on Port: " + PORT));
