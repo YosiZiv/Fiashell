@@ -1,9 +1,10 @@
+import { apiRequest } from "../actions/api";
 import {
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from "../actions/register";
-import { apiRequest } from "../actions/api";
+import { setMessage } from "../actions/ui";
 const userRegister = ({ dispatch }) => (next) => (action) => {
   next(action);
   const URL = "user/";
@@ -33,7 +34,7 @@ const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === USER_REGISTER_FAIL) {
     console.log(action.payload);
-    // dispatch(setMessage(action.payload));
+    dispatch(setMessage(action.payload));
   }
 };
 export const registerMdl = [
