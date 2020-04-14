@@ -28,9 +28,6 @@ const Register = ({
     };
     return userRegister(registerData);
   };
-  console.log(message);
-
-  console.log(globalMessage, message);
   return (
     <div className='register-container'>
       <div className='register-title'>
