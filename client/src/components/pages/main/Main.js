@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SlideIn from "../../layouts/SlideIn/SlideIn";
-import Register from "../register/register";
+import Register from "../register/Register";
 import Login from "../login/Login";
 import "./Main.scss";
 
@@ -16,7 +16,7 @@ const Main = () => {
     <div className='main-container'>
       <div className='main-header'>
         <h2>MPPUM</h2>
-        <p>My Pivate Product User BULBULnt </p>
+        <p>My Pivate Product User</p>
         <button id='register' onClick={slideInOpen} type='button'>
           Register
         </button>
