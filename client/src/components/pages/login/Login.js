@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Input from "../../layouts/TextInput/TextInput";
+import Button from "@material-ui/core/Button";
 import { loginInputChange, userLogin } from "../../../redux/actions/login";
 import "./Login.scss";
 const Login = ({
@@ -54,7 +55,15 @@ const Login = ({
             handleInputChange={handleInputChange}
           />
           <div className='register-submit'>
-            <button onClick={handleFormSubmit}>Login</button>
+            <Button
+              id='login'
+              type='button'
+              onClick={handleFormSubmit}
+              variant='contained'
+              color='primary'
+            >
+              Login
+            </Button>
           </div>
         </form>
       </div>
