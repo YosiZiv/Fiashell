@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SlideIn from "../../layouts/SlideIn/SlideIn";
 import Register from "../register/Register";
 import Login from "../login/Login";
+import Button from "@material-ui/core/Button";
 import "./Main.scss";
 
 const Main = () => {
@@ -17,12 +18,26 @@ const Main = () => {
       <div className='main-header'>
         <h2>MPPUM</h2>
         <p>My Pivate Product User</p>
-        <button id='register' onClick={slideInOpen} type='button'>
+      </div>
+      <div className='main-body'>
+        <Button
+          id='register'
+          onClick={slideInOpen}
+          type='button'
+          variant='contained'
+          color='primary'
+        >
           Register
-        </button>
-        <button id='login' type='button' onClick={slideInOpen}>
+        </Button>
+        <Button
+          id='login'
+          type='button'
+          onClick={slideInOpen}
+          variant='contained'
+          color='secondary'
+        >
           Login
-        </button>
+        </Button>
       </div>
       <SlideIn open={slideToggle}>
         {(slideToggle === "register" && <Register />) ||

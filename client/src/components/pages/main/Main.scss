@@ -17,3 +17,11 @@
   width: 90%;
   margin: 0 auto;
 }
+.main-body {
+  display: flex;
+  justify-content: center;
+}
+.main-body button {
+  min-width: 100px;
+  margin: 5px;
+}
