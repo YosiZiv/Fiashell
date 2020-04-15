@@ -1,7 +1,10 @@
 const { User } = require("../models/index");
 const bcrypt = require("bcryptjs");
-const { validateAdminRegisterInput } = require("../../core/validations/auth");
-exports.createUser = async (req, res, next) => {
+const {
+  validateAdminRegisterInput,
+} = require("../../../core/validations/auth");
+
+exports.createUser = async (req, res) => {
   const { body } = req;
   const errors = validateAdminRegisterInput(body);
   if (Object.keys(errors).length) {
@@ -32,4 +35,8 @@ exports.createUser = async (req, res, next) => {
         });
     });
   });
+};
+exports.loginUser = async (req, res) => {
+  console.log("function work", req.body);
+  return res.status(200).json({ message: "all set up" });
 };
