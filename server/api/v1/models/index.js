@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { MongoURI } = require("../../config/env");
+const { MongoURI } = require("../../../config/env");
 console.log("server", MongoURI);
 
 const chalk = require("chalk");
