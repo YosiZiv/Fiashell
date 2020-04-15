@@ -1,10 +1,20 @@
 .text-input-container {
+  padding-left: 5px;
+  text-align: left;
+}
+.text-input-container p {
+  padding-left: 10px;
 }
 .text-input-header {
   color: red;
 }
 .text-input {
+  border: 1px solid #e6e6e6;
+  width: 95%;
+  height: 32px;
+  text-indent: 15px;
 }
+
 .invalid {
   border: 1px solid red;
   background-color: #fda49a;
