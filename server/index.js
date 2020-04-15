@@ -1,10 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const api = require("./api/api");
+const api = require("./api/v1/api");
 const PORT = process.env.PORT || 4000;
 const helmet = require("helmet");
 const morgan = require("morgan");
