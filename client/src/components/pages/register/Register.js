@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Input from "../../layouts/TextInput/TextInput";
 import { inputChange, userRegister } from "../../../redux/actions/register";
+import Button from "@material-ui/core/Button";
 import "./Register.scss";
 const Register = ({
   loading,
@@ -31,7 +32,7 @@ const Register = ({
   return (
     <div className='register-container'>
       <div className='register-title'>
-        <h2> BE ADMIN</h2>
+        <h2>Register</h2>
       </div>
       <div className='register-form'>
         <form onSubmit={(e) => e.preventDefault()}>
@@ -45,7 +46,7 @@ const Register = ({
               minLength: 2,
               maxLength: 256,
             }}
-            error={registerForm.firstName?.error ?? message?.firstName}
+            error={registerForm.firstName?.error ?? message.firstName}
             disabled={loading}
             value={registerForm.firstName?.value ?? ""}
             handleInputChange={handleInputChange}
@@ -121,9 +122,15 @@ const Register = ({
           />
         </form>
         <div className='register-submit'>
-          <button className='btn btn-primary' onClick={handleFormSubmit}>
+          <Button
+            id='login'
+            type='button'
+            onClick={handleFormSubmit}
+            variant='contained'
+            color='primary'
+          >
             Register
-          </button>
+          </Button>
         </div>
       </div>
     </div>
