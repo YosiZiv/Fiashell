@@ -34,7 +34,7 @@ const Register = ({
         <h2> BE ADMIN</h2>
       </div>
       <div className='register-form'>
-        <div onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <Input
             id='firstName'
             name='First Name'
@@ -119,12 +119,12 @@ const Register = ({
             value={registerForm.passwordConfirm?.value ?? ""}
             handleInputChange={handleInputChange}
           />
+        </form>
+        <div className='register-submit'>
+          <button className='btn btn-primary' onClick={handleFormSubmit}>
+            Register
+          </button>
         </div>
-      </div>
-      <div className='registerSubmit'>
-        <button className='btn btn-primary' onClick={handleFormSubmit}>
-          BE ADMIN
-        </button>
       </div>
     </div>
   );
