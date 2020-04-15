@@ -7,7 +7,7 @@ import {
 import { setMessage } from "../actions/ui";
 const userRegister = ({ dispatch }) => (next) => (action) => {
   next(action);
-  const URL = "user/";
+  const URL = "public/register";
   if (action.type === USER_REGISTER) {
     console.log("function register user start work ");
 
