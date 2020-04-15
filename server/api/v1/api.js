@@ -1,8 +1,8 @@
 const express = require("express");
-const publicRoutes = require("./routes/publicRoutes");
-
+const userRoutes = require("./routes/userRoutes");
+const sessionRoutes = require("./routes/sessionRoutes");
 const router = express.Router();
 
-router.use("/public", publicRoutes);
-
+router.use("/user", userRoutes);
+router.use("/session", sessionRoutes);
 module.exports = router;
