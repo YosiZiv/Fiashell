@@ -9,7 +9,7 @@ const userLogin = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   if (action.type === USER_LOGIN) {
-    const URL = "public/login";
+    const URL = "/session";
     console.log("function login user start work ", action.payload);
     dispatch(
       apiRequest(
