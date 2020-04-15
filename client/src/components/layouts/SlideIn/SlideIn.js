@@ -1,10 +1,10 @@
 import React from "react";
 import "./SlideIn.scss";
-const slideIn = (props) => {
+const slideIn = ({ open = false, close = false, children }) => {
   const { open, children } = props;
+  //TODO ADD CLOSE METHOD
   const openCheck = open ? " is-open" : "";
-  const style = "slider" + openCheck;
-  return <div className={style}>{children}</div>;
+  return <div className={"slider" + openCheck}>{children}</div>;
 };
 
 export default slideIn;
