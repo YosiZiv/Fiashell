@@ -1,148 +1,110 @@
 import React from "react";
 import { connect } from "react-redux";
-import Input from "../../layouts/TextInput/TextInput";
-import { inputChange, userRegister } from "../../../redux/actions/register";
+import { Formik, Field, Form } from "formik"; // Change to formik
+import * as yup from "yup"; // yup object for validation on form fields
+import Input from "../../layouts/TextInput/TextInput"; // Field Component to use
+import { userRegister } from "../../../redux/actions/register";
 import Button from "@material-ui/core/Button";
 import "./Register.scss";
-const Register = ({
-  loading,
-  registerForm,
-  message,
-  inputChange,
-  userRegister,
-}) => {
-  const handleInputChange = (event, id, validation) => {
-    event.preventDefault();
-    const { value } = event.currentTarget;
-    inputChange({ id, value, validation });
-  };
-  const handleFormSubmit = async () => {
-    console.log("function 1 work", registerForm);
-
-    const registerData = {
-      firstName: registerForm.firstName?.value ?? "",
-      lastName: registerForm.lastName?.value ?? "",
-      phone: registerForm.phone?.value ?? "",
-      email: registerForm.email?.value ?? "",
-      password: registerForm.password?.value ?? "",
-      passwordConfirm: registerForm.passwordConfirm?.value ?? "",
-    };
-    return userRegister(registerData);
-  };
+const Register = ({ userRegister, loading }) => {
+  //Validation object register form
+  const validationSchema = yup.object({
+    firstName: yup.string().required().min(2).max(256),
+    lastName: yup.string().required().min(2).max(256),
+    phone: yup.string().required().min(6).max(50),
+    email: yup.string().required().email(),
+    password: yup.string().required().min(6).max(256),
+  });
   return (
     <div className='register-container'>
       <div className='register-title'>
         <h2>Register</h2>
       </div>
       <div className='register-form'>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <Input
-            id='firstName'
-            name='First Name'
-            type='text'
-            required
-            validation={{
-              isRequired: true,
-              minLength: 2,
-              maxLength: 256,
-            }}
-            error={registerForm.firstName?.error ?? message.firstName}
-            disabled={loading}
-            value={registerForm.firstName?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-
-          <Input
-            id='lastName'
-            name='Last Name'
-            type='text'
-            required
-            validation={{
-              isRequired: true,
-              minLength: 2,
-              maxLength: 256,
-            }}
-            error={registerForm.lastName?.error ?? message.lastName}
-            disabled={loading}
-            value={registerForm.lastName?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-          <Input
-            id='phone'
-            name='Phone'
-            type='text'
-            required
-            validation={{
-              isRequired: true,
-              minLength: 6,
-              maxLength: 15,
-            }}
-            error={registerForm.phone?.error ?? message.phone}
-            disabled={loading}
-            value={registerForm.phone?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-
-          <Input
-            id='email'
-            name='Email'
-            type='email'
-            required
-            validation={{ isRequired: true, isEmail: true }}
-            error={registerForm.email?.error ?? message.email}
-            disabled={loading}
-            value={registerForm.email?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-
-          <Input
-            id='password'
-            name='Password'
-            type='password'
-            required
-            validation={{ isRequired: true, minLength: 6 }}
-            error={registerForm.password?.error ?? message.password}
-            disabled={loading}
-            value={registerForm.password?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-
-          <Input
-            id='passwordConfirm'
-            name='Password Confirm'
-            type='password'
-            required
-            validation={{ isRequired: true, minLength: 6 }}
-            error={
-              registerForm.passwordConfirm?.error ?? message.passwordConfirm
-            }
-            disabled={loading}
-            value={registerForm.passwordConfirm?.value ?? ""}
-            handleInputChange={handleInputChange}
-          />
-        </form>
-        <div className='register-submit'>
-          <Button
-            id='login'
-            type='button'
-            onClick={handleFormSubmit}
-            variant='contained'
-            color='primary'
-          >
-            Register
-          </Button>
-        </div>
+        <Formik
+          // init value to form
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            phone: "",
+            email: "",
+            password: "",
+            passwordConfirm: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(data) => userRegister(data)}
+        >
+          {({ values, errors, touched, isSubmitting }) => (
+            <Form>
+              <Field
+                error={touched.firstName && errors.firstName}
+                title='First Name'
+                name='firstName'
+                type='input'
+                as={Input}
+              />
+              <Field
+                error={touched.lastName && errors.lastName}
+                title='Last Name'
+                name='lastName'
+                type='input'
+                as={Input}
+              />
+              <Field
+                error={touched.email && errors.email}
+                title='Email'
+                name='email'
+                type='input'
+                as={Input}
+              />
+              <Field
+                error={touched.phone && errors.phone}
+                title='Phone'
+                name='phone'
+                type='input'
+                as={Input}
+              />
+              <Field
+                error={touched.password && errors.password}
+                title='Password'
+                name='password'
+                type='password'
+                as={Input}
+              />
+              <Field
+                error={
+                  touched.passwordConfirm &&
+                  values.passwordConfirm !== values.password
+                }
+                title='Password Confirm'
+                name='passwordConfirm'
+                type='password'
+                as={Input}
+              />
+              <div className='register-submit'>
+                <Button
+                  disabled={loading}
+                  id='login'
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                >
+                  Register
+                </Button>
+              </div>
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+              <pre>{JSON.stringify(errors, null, 2)}</pre>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ ui: { message, loading } }) => {
   return {
-    registerForm: state.register.registerForm,
-    message: state.ui.message,
-    loading: state.ui.loading,
+    message,
+    loading,
   };
 };
-export default connect(mapStateToProps, { inputChange, userRegister })(
-  Register
-);
+export default connect(mapStateToProps, { userRegister })(Register);

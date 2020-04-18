@@ -1,33 +1,25 @@
 import React from "react";
 import "./TextInput.scss";
-const textInput = ({
-  id,
-  name,
-  type,
-  required,
-  validation,
-  error,
-  disabled,
-  value,
-  handleInputChange,
-}) => {
+const textInput = ({ title, name, type, error, value, onChange, onBlur }) => {
   const inputClass = error ? "text-input invalid" : "text-input";
-  console.log(inputClass);
+  console.log(error);
 
   return (
     <div className='text-input-container'>
       <p>
         <strong>
-          {name} {required && <span className='text-input-header'>*</span>}
+          {title} {required && <span className='text-input-header'>*</span>}
         </strong>
       </p>
       <input
-        id={id}
+        id={name}
+        name={name}
         type={type}
         value={value}
         disabled={disabled}
-        onChange={(e) => handleInputChange(e, id, validation)}
-        placeholder={`Enter ${name}`}
+        onChange={onChange}
+        onBlur={onBlur}
+        placeholder={`Enter ${title}`}
         autoComplete='off'
         className={inputClass}
       />
