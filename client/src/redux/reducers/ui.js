@@ -3,10 +3,13 @@ import {
   LOADING_FINISH,
   SET_MESSAGE,
   DELETE_MESSAGE,
+  CLEAR_UI,
+  REDIRECT,
 } from "../actions/ui";
 const initState = {
   loading: false,
   message: {},
+  redirect: null,
 };
 
 export default function ui(state = initState, action) {
@@ -17,10 +20,22 @@ export default function ui(state = initState, action) {
       return { ...state, loading: false };
     case SET_MESSAGE:
       return { ...state, message: action.payload };
-    case DELETE_MESSAGE:
+    case REDIRECT: {
+      return {
+        ...state,
+        redirect: action.payload,
+      };
+    }
+    case DELETE_MESSAGE: {
       const message = state.message;
       delete message[action.payload];
       return { ...state, message };
+    }
+    case CLEAR_UI: {
+      return {
+        ...initState,
+      };
+    }
     default:
       return state;
   }

@@ -3,14 +3,13 @@ import {
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  finishRegister,
 } from "../actions/register";
-import { setMessage } from "../actions/ui";
+import { setMessage, redirect } from "../actions/ui";
 const userRegister = ({ dispatch }) => (next) => (action) => {
   next(action);
   const URL = "/user";
   if (action.type === USER_REGISTER) {
-    console.log("function register user start work ");
-
     dispatch(
       apiRequest(
         "POST",
@@ -25,15 +24,12 @@ const userRegister = ({ dispatch }) => (next) => (action) => {
 const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === USER_REGISTER_SUCCESS) {
-    console.log(action.payload);
-
-    // dispatch(redirectTo("login"));
+    dispatch(finishRegister(true));
   }
 };
 const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === USER_REGISTER_FAIL) {
-    console.log(action.payload);
     dispatch(setMessage(action.payload));
   }
 };
