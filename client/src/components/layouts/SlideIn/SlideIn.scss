@@ -1,12 +1,16 @@
 .slider {
+  background: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  width: 100%;
   position: absolute;
   top: -100%;
   transition: top 1s;
 }
 .is-open {
-  background: rgba(0, 0, 0, 0.8);
-  height: 100%;
-  width: 100%;
   top: 0;
+  z-index: 100;
+}
+.is-close {
+  top: -100%;
   z-index: 100;
 }

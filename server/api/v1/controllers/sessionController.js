@@ -1,4 +1,40 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { User } = require("../models/index");
+const { SECRET, TOKEN_EXPIRES } = require("../../../config/env");
 exports.createSession = async (req, res) => {
-  console.log("function work", req.body);
-  return res.status(200).json({ message: "all set up" });
+  const {
+    body: { email, password },
+  } = req;
+
+  const user = await User.findOne({ email });
+  //  check for user
+  if (!user) {
+    return res.status(400).json({ error: "email or password incorrect" });
+  }
+  bcrypt
+    .compare(password, user.password)
+    .then((isMatch) => {
+      if (!isMatch) {
+        return res.status(400).json({ message: "email or password incorrect" });
+      }
+      if (isMatch) {
+        return jwt.sign(
+          { ...user },
+          SECRET,
+          { expiresIn: TOKEN_EXPIRES },
+          (err, token) => {
+            return res.json({
+              token: `Bearer ${token}`,
+              user: { name: user.name, email: user.email },
+              expiresIn: 7,
+            });
+          }
+        );
+      }
+      return res.status(400).json({ message: "email or password incorrect" });
+    })
+    .catch(() => {
+      return res.status(400).json({ message: "Something went wrong :/" });
+    });
 };

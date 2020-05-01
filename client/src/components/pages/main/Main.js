@@ -1,18 +1,19 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import SlideIn from "../../layouts/SlideIn/SlideIn";
 import Register from "../register/Register";
 import Login from "../login/Login";
 import Button from "@material-ui/core/Button";
 import "./Main.scss";
 
-const Main = () => {
+const Main = ({ redirect }) => {
   const [slideToggle, setSlideToggle] = useState(null);
   const slideInOpen = (e) => {
-    console.log(e.currentTarget.value);
     setSlideToggle(e.currentTarget.id);
   };
-  console.log(slideToggle);
-
+  const slideInClose = (e) => {
+    setSlideToggle(null);
+  };
   return (
     <div className='main-container'>
       <div className='main-header'>
@@ -40,10 +41,18 @@ const Main = () => {
         </Button>
       </div>
       <SlideIn open={slideToggle}>
-        {(slideToggle === "register" && <Register />) ||
-          (slideToggle === "login" && <Login />)}
+        {(slideToggle === "register" && <Register close={slideInClose} />) ||
+          (slideToggle === "login" && <Login close={slideInClose} />)}
       </SlideIn>
     </div>
   );
 };
-export default Main;
+const mapStateToProps = ({ ui: { message, loading, redirect } }) => {
+  return {
+    message,
+    loading,
+    redirect,
+  };
+};
+
+export default connect(mapStateToProps, null)(Main);

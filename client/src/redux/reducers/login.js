@@ -1,7 +1,12 @@
-import { LOGIN_INPUT_CHANGE } from "../actions/login";
+import {
+  LOGIN_INPUT_CHANGE,
+  FINISH_LOGIN,
+  CLEAR_LOGIN,
+} from "../actions/login";
 import { checkValidity } from "../../utility";
 const initState = {
   loginForm: {},
+  finishLogin: false,
 };
 
 export default function login(state = initState, action) {
@@ -9,8 +14,6 @@ export default function login(state = initState, action) {
     case LOGIN_INPUT_CHANGE:
       const { id, value, validation } = action.payload;
       let error = checkValidity(id, value, validation);
-      console.log(error);
-
       return {
         ...state,
         loginForm: {
@@ -21,6 +24,18 @@ export default function login(state = initState, action) {
           },
         },
       };
+    case FINISH_LOGIN: {
+      return {
+        ...state,
+        finishLogin: action.payload,
+      };
+    }
+
+    case CLEAR_LOGIN: {
+      return {
+        ...initState,
+      };
+    }
     default:
       return state;
   }

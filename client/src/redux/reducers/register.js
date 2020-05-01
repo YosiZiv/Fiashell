@@ -1,7 +1,12 @@
-import { SET_INPUT } from "../actions/register";
+import {
+  SET_INPUT,
+  CLEAR_REGISTER,
+  FINISH_REGISTER,
+} from "../actions/register";
 import { checkValidity } from "../../utility";
 const initState = {
   registerForm: {},
+  finishRegister: false,
 };
 
 export default function register(state = initState, action) {
@@ -21,6 +26,17 @@ export default function register(state = initState, action) {
           },
         },
       };
+    case FINISH_REGISTER: {
+      return {
+        ...state,
+        finishRegister: action.payload,
+      };
+    }
+    case CLEAR_REGISTER: {
+      return {
+        ...initState,
+      };
+    }
     default:
       return state;
   }
