@@ -1,9 +1,12 @@
 .text-input-container {
   padding-left: 5px;
   text-align: left;
+  font-size: 10px;
 }
 .text-input-container p {
-  padding-left: 10px;
+  color: #b7baaf;
+  padding: 5px;
+  margin: 0;
 }
 .text-input-header {
   color: red;
@@ -11,10 +14,13 @@
 .text-input {
   border: 1px solid #e6e6e6;
   width: 95%;
-  height: 32px;
-  text-indent: 15px;
+  height: 25px;
+  text-indent: 5px;
+  font-size: 10px;
 }
-
+.text-input-error-message {
+  color: #c6290f;
+}
 .invalid {
   border: 1px solid red;
   background-color: #fda49a;

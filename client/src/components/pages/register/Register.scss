@@ -1,12 +1,22 @@
 .register-container {
-  margin-top: 40px;
   background: #ffffff;
   padding: 1px 1px;
+  width: 90%;
+  margin: 50px auto;
+  border-radius: 10px;
 }
 .register-title h2 {
-  color: #3d93df;
+  font-size: 14px;
+  color: #cbd0b5;
 }
-
+.register-form > form > div {
+  margin: 10px 0px;
+}
 .register-submit {
   padding: 10px 0;
+}
+.register-submit button {
+  padding: 5px 20px;
+
+  font-size: 10px;
 }
