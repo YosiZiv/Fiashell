@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Formik, Field, Form } from "formik"; // Change to formik
+import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import * as yup from "yup"; // yup object for validation on form fields
 import Input from "../../layouts/TextInput/TextInput"; // Field Component to use
 import { userRegister } from "../../../redux/actions/register";
-import Button from "@material-ui/core/Button";
 import "./Register.scss";
-const Register = ({ userRegister, loading }) => {
+const Register = ({ userRegister, loading, redirect, history, close }) => {
   //Validation object register form
   const validationSchema = yup.object({
     firstName: yup.string().required().min(2).max(256),
@@ -15,8 +16,16 @@ const Register = ({ userRegister, loading }) => {
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(256),
   });
+  redirect && history.push(redirect);
   return (
     <div className='register-container'>
+      <div className='login-close'>
+        <CloseIcon
+          onClick={close}
+          style={{ fontSize: 30, cursor: "pointer" }}
+        />
+      </div>
+
       <div className='register-title'>
         <h2>Register</h2>
       </div>
@@ -54,7 +63,7 @@ const Register = ({ userRegister, loading }) => {
                 error={touched.email && errors.email}
                 title='Email'
                 name='email'
-                type='input'
+                type='email'
                 as={Input}
               />
               <Field
@@ -92,8 +101,8 @@ const Register = ({ userRegister, loading }) => {
                   Register
                 </Button>
               </div>
-              <pre>{JSON.stringify(values, null, 2)}</pre>
-              <pre>{JSON.stringify(errors, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre>
+              <pre>{JSON.stringify(errors, null, 2)}</pre> */}
             </Form>
           )}
         </Formik>
@@ -101,10 +110,11 @@ const Register = ({ userRegister, loading }) => {
     </div>
   );
 };
-const mapStateToProps = ({ ui: { message, loading } }) => {
+const mapStateToProps = ({ ui: { message, loading, redirect } }) => {
   return {
     message,
     loading,
+    redirect,
   };
 };
 export default connect(mapStateToProps, { userRegister })(Register);
