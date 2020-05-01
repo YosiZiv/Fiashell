@@ -1,9 +1,16 @@
 import React from "react";
 import "./TextInput.scss";
-const textInput = ({ title, name, type, error, value, onChange, onBlur }) => {
+const textInput = ({
+  title,
+  required,
+  name,
+  type,
+  error,
+  value,
+  onChange,
+  onBlur,
+}) => {
   const inputClass = error ? "text-input invalid" : "text-input";
-  console.log(error);
-
   return (
     <div className='text-input-container'>
       <p>
@@ -16,7 +23,6 @@ const textInput = ({ title, name, type, error, value, onChange, onBlur }) => {
         name={name}
         type={type}
         value={value}
-        disabled={disabled}
         onChange={onChange}
         onBlur={onBlur}
         placeholder={`Enter ${title}`}
