@@ -13,12 +13,13 @@ import { clearUi } from "../../../redux/actions/ui";
 import CloseIcon from "@material-ui/icons/Close";
 import "./Login.scss";
 const Login = ({ close, userLogin, finishLogin, clearUi, clearLogin }) => {
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       clearUi();
-      return clearLogin();
-    };
-  }, [clearUi, clearLogin]);
+      clearLogin();
+    },
+    [clearUi, clearLogin]
+  );
   finishLogin && close();
   const validationSchema = yup.object({
     email: yup.string().required().email(),

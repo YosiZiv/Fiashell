@@ -5,7 +5,7 @@ import {
   USER_REGISTER_FAIL,
   finishRegister,
 } from "../actions/register";
-import { setMessage, redirect } from "../actions/ui";
+import { setMessage } from "../actions/ui";
 const userRegister = ({ dispatch }) => (next) => (action) => {
   next(action);
   const URL = "/user";
