@@ -30,6 +30,8 @@ const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
 const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === USER_REGISTER_FAIL) {
+    console.log(action.payload);
+
     dispatch(setMessage(action.payload));
   }
 };
