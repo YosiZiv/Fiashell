@@ -1,13 +1,12 @@
 const { User } = require("../models/index");
 const bcrypt = require("bcryptjs");
-const {
-  validateAdminRegisterInput,
-} = require("../../../core/validations/auth");
+const { createUserValidation } = require("../../../core/validations/auth");
 
 exports.createUser = async (req, res) => {
   const { body } = req;
-  const errors = validateAdminRegisterInput(body);
+  const errors = createUserValidation(body);
   if (Object.keys(errors).length) {
+    console.log(errors);
     return res.status(400).json({ errors });
   }
   const newUser = await new User({ ...body });
@@ -15,7 +14,7 @@ exports.createUser = async (req, res) => {
     bcrypt.hash(newUser.password, salt, async (e, hash) => {
       if (e) {
         errors.bcrypt = `something went wrong here :/`;
-        return res.status(401).json({ errors });
+        return res.status(400).json({ errors });
       }
       newUser.password = hash;
       newUser
@@ -27,11 +26,11 @@ exports.createUser = async (req, res) => {
         })
         .catch((e) => {
           if (e.code === 11000) {
-            errors.Email = `Email Have To be Unique`;
-            return res.status(401).json({ errors });
+            errors.Email = `Have To be Unique`;
+            return res.status(400).json({ errors });
           }
           errors.createUser = e;
-          return res.status(401).json(e);
+          return res.status(500).json(e);
         });
     });
   });
