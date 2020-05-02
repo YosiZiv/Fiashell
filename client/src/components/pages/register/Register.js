@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Formik, Field, Form } from "formik"; // Change to formik
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import * as yup from "yup"; // yup object for validation on form fields
 import Input from "../../layouts/TextInput/TextInput"; // Field Component to use
-import { userRegister } from "../../../redux/actions/register";
+import Message from "../../layouts/Message/Message";
+import { userRegister, clearRegister } from "../../../redux/actions/register";
+import { clearUi } from "../../../redux/actions/ui";
 import "./Register.scss";
-const Register = ({ userRegister, loading, redirect, history, close }) => {
+const Register = ({
+  userRegister,
+  loading,
+  close,
+  finishRegister,
+  messages,
+  clearRegister,
+  clearUi,
+}) => {
+  useEffect(
+    () => () => {
+      clearUi();
+      clearRegister();
+    },
+    [clearUi, clearRegister]
+  );
   //Validation object register form
   const validationSchema = yup.object({
     firstName: yup.string().required().min(2).max(256),
@@ -16,7 +33,16 @@ const Register = ({ userRegister, loading, redirect, history, close }) => {
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(256),
   });
-  redirect && history.push(redirect);
+  finishRegister && close();
+  const mapMessages = Object.entries(messages).map((message) => (
+    <Message
+      key={message[0]}
+      color='red'
+      text={`${message[0]} ${message[1]}`}
+    />
+  ));
+  console.log(mapMessages);
+
   return (
     <div className='register-container'>
       <div className='login-close'>
@@ -101,8 +127,7 @@ const Register = ({ userRegister, loading, redirect, history, close }) => {
                   Register
                 </Button>
               </div>
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-              <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+              {mapMessages}
             </Form>
           )}
         </Formik>
@@ -110,11 +135,19 @@ const Register = ({ userRegister, loading, redirect, history, close }) => {
     </div>
   );
 };
-const mapStateToProps = ({ ui: { message, loading, redirect } }) => {
+const mapStateToProps = ({
+  register: { finishRegister },
+  ui: { messages, loading, redirect },
+}) => {
   return {
-    message,
+    messages,
     loading,
     redirect,
+    finishRegister,
   };
 };
-export default connect(mapStateToProps, { userRegister })(Register);
+export default connect(mapStateToProps, {
+  userRegister,
+  clearRegister,
+  clearUi,
+})(Register);

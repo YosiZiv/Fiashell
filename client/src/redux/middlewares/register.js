@@ -5,7 +5,7 @@ import {
   USER_REGISTER_FAIL,
   finishRegister,
 } from "../actions/register";
-import { setMessage, redirect } from "../actions/ui";
+import { setMessage } from "../actions/ui";
 const userRegister = ({ dispatch }) => (next) => (action) => {
   next(action);
   const URL = "/user";
@@ -30,6 +30,8 @@ const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
 const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   next(action);
   if (action.type === USER_REGISTER_FAIL) {
+    console.log(action.payload);
+
     dispatch(setMessage(action.payload));
   }
 };

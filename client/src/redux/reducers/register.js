@@ -1,7 +1,7 @@
 import {
   SET_INPUT,
-  CLEAR_REGISTER,
   FINISH_REGISTER,
+  CLEAR_REGISTER,
 } from "../actions/register";
 import { checkValidity } from "../../utility";
 const initState = {
@@ -27,6 +27,8 @@ export default function register(state = initState, action) {
         },
       };
     case FINISH_REGISTER: {
+      console.log("finish register ", action.payload);
+
       return {
         ...state,
         finishRegister: action.payload,
@@ -37,6 +39,7 @@ export default function register(state = initState, action) {
         ...initState,
       };
     }
+
     default:
       return state;
   }

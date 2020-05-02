@@ -8,7 +8,7 @@ import {
 } from "../actions/ui";
 const initState = {
   loading: false,
-  message: {},
+  messages: {},
   redirect: null,
 };
 
@@ -19,7 +19,7 @@ export default function ui(state = initState, action) {
     case LOADING_FINISH:
       return { ...state, loading: false };
     case SET_MESSAGE:
-      return { ...state, message: action.payload };
+      return { ...state, messages: action.payload };
     case REDIRECT: {
       return {
         ...state,
@@ -27,9 +27,8 @@ export default function ui(state = initState, action) {
       };
     }
     case DELETE_MESSAGE: {
-      const message = state.message;
-      delete message[action.payload];
-      return { ...state, message };
+      delete state.messages[action.payload];
+      return { ...state, messages: state.messages };
     }
     case CLEAR_UI: {
       return {

@@ -4,6 +4,7 @@ import { Formik, Field, Form } from "formik";
 import * as yup from "yup";
 import Input from "../../layouts/TextInput/TextInput";
 import Button from "@material-ui/core/Button";
+import Message from "../../layouts/Message/Message";
 import {
   loginInputChange,
   userLogin,
@@ -12,18 +13,33 @@ import {
 import { clearUi } from "../../../redux/actions/ui";
 import CloseIcon from "@material-ui/icons/Close";
 import "./Login.scss";
-const Login = ({ close, userLogin, finishLogin, clearUi, clearLogin }) => {
-  useEffect(() => {
-    return () => {
+const Login = ({
+  close,
+  userLogin,
+  finishLogin,
+  messages,
+  clearUi,
+  clearLogin,
+}) => {
+  useEffect(
+    () => () => {
       clearUi();
-      return clearLogin();
-    };
-  }, [clearUi, clearLogin]);
+      clearLogin();
+    },
+    [clearUi, clearLogin]
+  );
   finishLogin && close();
   const validationSchema = yup.object({
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(256),
   });
+  const mapMessages = Object.entries(messages).map((message) => (
+    <Message
+      key={message[0]}
+      color='red'
+      text={`${message[0]} ${message[1]}`}
+    />
+  ));
   return (
     <div className='login-container'>
       <div className='login-close'>
@@ -75,6 +91,7 @@ const Login = ({ close, userLogin, finishLogin, clearUi, clearLogin }) => {
                   Login
                 </Button>
               </div>
+              {mapMessages}
             </Form>
           )}
         </Formik>
@@ -84,11 +101,11 @@ const Login = ({ close, userLogin, finishLogin, clearUi, clearLogin }) => {
 };
 const mapStateToProps = ({
   login: { loginForm, finishLogin },
-  ui: { message, loading },
+  ui: { messages, loading },
 }) => {
   return {
     loginForm,
-    message,
+    messages,
     loading,
     finishLogin,
   };
