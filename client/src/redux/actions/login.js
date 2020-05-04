@@ -1,4 +1,3 @@
-export const LOGIN_INPUT_CHANGE = "[login] Set Input";
 export const USER_LOGIN = "[login] user login Start";
 export const USER_LOGIN_SUCCESS = "[login] user login Success";
 export const USER_LOGIN_FAIL = "[login] user login Fail";
@@ -6,10 +5,6 @@ export const FINISH_LOGIN = "[login] finish login";
 export const CLEAR_LOGIN = "[login] clear login";
 export const CHECK_EXPIRES_IN = "[login] check expires in";
 export const LOGOUT = "[login] logout";
-export const loginInputChange = (payload) => ({
-  type: LOGIN_INPUT_CHANGE,
-  payload,
-});
 
 export const userLogin = (payload) => ({
   type: USER_LOGIN,

@@ -1,8 +1,4 @@
-import {
-  SET_INPUT,
-  FINISH_REGISTER,
-  CLEAR_REGISTER,
-} from "../actions/register";
+import { FINISH_REGISTER, CLEAR_REGISTER } from "../actions/register";
 import { checkValidity } from "../../utility";
 const initState = {
   registerForm: {},
@@ -11,21 +7,6 @@ const initState = {
 
 export default function register(state = initState, action) {
   switch (action.type) {
-    case SET_INPUT:
-      const { id, value, validation } = action.payload;
-      let error = checkValidity(id, value, validation);
-      console.log(error);
-
-      return {
-        ...state,
-        registerForm: {
-          ...state.registerForm,
-          [id]: {
-            value,
-            error,
-          },
-        },
-      };
     case FINISH_REGISTER: {
       console.log("finish register ", action.payload);
 
