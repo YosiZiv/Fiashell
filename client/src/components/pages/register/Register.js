@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Formik, Field, Form } from "formik"; // Change to formik
-import Button from "@material-ui/core/Button";
+import Button from "../../layouts/Button";
 import CloseIcon from "@material-ui/icons/Close";
-import * as yup from "yup"; // yup object for validation on form fields
 import Input from "../../layouts/TextInput/TextInput"; // Field Component to use
 import Message from "../../layouts/Message/Message";
+import * as yup from "yup"; // yup object for validation on form fields
 import { userRegister, clearRegister } from "../../../redux/actions/register";
 import { clearUi } from "../../../redux/actions/ui";
 import "./Register.scss";
 const Register = ({
   userRegister,
-  loading,
   close,
   finishRegister,
-  messages,
   clearRegister,
   clearUi,
 }) => {
@@ -34,15 +32,6 @@ const Register = ({
     password: yup.string().required().min(6).max(256),
   });
   finishRegister && close();
-  const mapMessages = Object.entries(messages).map((message) => (
-    <Message
-      key={message[0]}
-      color='red'
-      text={`${message[0]} ${message[1]}`}
-    />
-  ));
-  console.log(mapMessages);
-
   return (
     <div className='register-container'>
       <div className='login-close'>
@@ -118,16 +107,15 @@ const Register = ({
               />
               <div className='register-submit'>
                 <Button
-                  disabled={loading}
+                  text='Register'
                   id='login'
                   type='submit'
                   variant='contained'
                   color='primary'
-                >
-                  Register
-                </Button>
+                />
               </div>
-              {mapMessages}
+              /
+              <Message color='red' />
             </Form>
           )}
         </Formik>
@@ -135,14 +123,8 @@ const Register = ({
     </div>
   );
 };
-const mapStateToProps = ({
-  register: { finishRegister },
-  ui: { messages, loading, redirect },
-}) => {
+const mapStateToProps = ({ register: { finishRegister } }) => {
   return {
-    messages,
-    loading,
-    redirect,
     finishRegister,
   };
 };

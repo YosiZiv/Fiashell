@@ -4,23 +4,13 @@ import { Formik, Field, Form } from "formik";
 import * as yup from "yup";
 import Input from "../../layouts/TextInput/TextInput";
 import Button from "@material-ui/core/Button";
-import Message from "../../layouts/Message/Message";
-import {
-  loginInputChange,
-  userLogin,
-  clearLogin,
-} from "../../../redux/actions/login";
+import Messages from "../../layouts/Message/Message";
+import Spinner from "../../layouts/Spinner";
+import { userLogin, clearLogin } from "../../../redux/actions/login";
 import { clearUi } from "../../../redux/actions/ui";
 import CloseIcon from "@material-ui/icons/Close";
 import "./Login.scss";
-const Login = ({
-  close,
-  userLogin,
-  finishLogin,
-  messages,
-  clearUi,
-  clearLogin,
-}) => {
+const Login = ({ close, userLogin, finishLogin, clearUi, clearLogin }) => {
   useEffect(
     () => () => {
       clearUi();
@@ -33,13 +23,8 @@ const Login = ({
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(256),
   });
-  const mapMessages = Object.entries(messages).map((message) => (
-    <Message
-      key={message[0]}
-      color='red'
-      text={`${message[0]} ${message[1]}`}
-    />
-  ));
+  console.log("rendering login component");
+
   return (
     <div className='login-container'>
       <div className='login-close'>
@@ -91,28 +76,22 @@ const Login = ({
                   Login
                 </Button>
               </div>
-              {mapMessages}
+              {<Messages color='red' />}
             </Form>
           )}
         </Formik>
       </div>
+      <Spinner />
     </div>
   );
 };
-const mapStateToProps = ({
-  login: { loginForm, finishLogin },
-  ui: { messages, loading },
-}) => {
+const mapStateToProps = ({ login: { finishLogin } }) => {
   return {
-    loginForm,
-    messages,
-    loading,
     finishLogin,
   };
 };
 
 export default connect(mapStateToProps, {
-  loginInputChange,
   userLogin,
   clearLogin,
   clearUi,
