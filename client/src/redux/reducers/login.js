@@ -1,9 +1,4 @@
-import {
-  LOGIN_INPUT_CHANGE,
-  FINISH_LOGIN,
-  CLEAR_LOGIN,
-} from "../actions/login";
-import { checkValidity } from "../../utility";
+import { FINISH_LOGIN, CLEAR_LOGIN } from "../actions/login";
 const initState = {
   finishLogin: false,
 };

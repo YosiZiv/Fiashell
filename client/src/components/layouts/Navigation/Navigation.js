@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   menuButton: {
-    marginRight: theme.spacing(36),
+    color: "#ffffff",
   },
   title: {},
   link: {
@@ -39,10 +39,9 @@ const Navigation = ({ isAuth, onClick }) => {
             <IconButton
               edge='start'
               className={classes.menuButton}
-              color='primary'
               aria-label='menu'
             >
-              <MenuIcon />
+              <MenuIcon style={{ fontSize: 40 }} />
             </IconButton>
           )}
 
