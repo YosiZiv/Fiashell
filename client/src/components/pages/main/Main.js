@@ -6,7 +6,7 @@ import Login from "../login/Login";
 import Button from "@material-ui/core/Button";
 import "./Main.scss";
 
-const Main = ({ redirect }) => {
+const Main = () => {
   const [slideToggle, setSlideToggle] = useState(null);
   const slideInOpen = (e) => {
     setSlideToggle(e.currentTarget.id);
@@ -47,12 +47,5 @@ const Main = ({ redirect }) => {
     </div>
   );
 };
-const mapStateToProps = ({ ui: { message, loading, redirect } }) => {
-  return {
-    message,
-    loading,
-    redirect,
-  };
-};
 
-export default connect(mapStateToProps, null)(Main);
+export default Main;
